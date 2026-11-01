@@ -19,6 +19,16 @@ namespace Assignment_02_EFC_.AppDbContexts
         public DbSet<Attendee> Attendees => Set<Attendee>();
         public DbSet<Badge> Badges => Set<Badge>();
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(
+                    "Server=.; Database = EventHubDb; Trusted_Connection = True; TrustServerCertificate = True; MultipleActiveResultSets = true"
+                );
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
